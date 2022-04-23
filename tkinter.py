@@ -7,8 +7,7 @@ from chempy import Substance
 
 def click():
     var = Substance.from_formula(entry.get())
-    var = var.unicode_name
-    label.config(text=var)
+    label.config(text="Your formula: " + var.unicode_name + '\n' + 'Mass: ' + '%.3f' % var.mass)
 
 root = Tk()
 
