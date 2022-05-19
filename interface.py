@@ -9,13 +9,13 @@ def clicked():
 
 def on_closing():
     if messagebox.askokcancel("Выход из приложения", "Хотите выйти из приложения?"):
-        window.destroy()
-        window.protocol("WM_DELETE_WINDOW", on_closing)  
+        window.destroy() 
 
 window = Tk()
 window.title("Chemical Calculator")
 window["bg"]="plum2"
 window.iconbitmap("chem.ico")
+window.protocol("WM_DELETE_WINDOW", on_closing) 
 
 frame_a = Frame(window, borderwidth=10, relief=GROOVE,bg="plum2")
 frame_a.pack()
