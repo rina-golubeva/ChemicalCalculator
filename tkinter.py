@@ -17,8 +17,8 @@ its output is carried out through the unicode_name method.
 '''
 
 def click():
-    var = Substance.from_formula(entry.get())
-    label.config(text="Your formula: " + var.unicode_name + '\n' + 'Mass: ' + '%.3f' % var.mass)
+    var = Substance.from_formula(entry_a.get())
+    answer_a.config(text="Your formula: " + var.unicode_name + '\n' + 'Mass: ' + '%.3f' % var.mass)
 
 '''
 Function for calculating coefficients in the equation.
@@ -30,27 +30,57 @@ Dictionaries are used for their output.
 '''    
     
 def clicked():
-    ex,prod=entry.get().split('=')
+    ex,prod=entry_b.get().split('=')
     ex,prod=balance_stoichiometry(set(ex.split('+')),set(prod.split('+')))
-    label.config(text='Коэффициенты: '+str(dict(ex))+str(dict(prod)))   
+    answer_b.config(text='Коэффициенты: '+str(dict(ex))+str(dict(prod)))
+    
+def on_closing():
+    if messagebox.askokcancel("Выход из приложения", "Хотите выйти из приложения?"):
+        root.destroy()
     
 root = Tk()
-
 root.title("Chemical calculator")
+root["bg"]="plum2"
+root.iconbitmap("chem.ico")
+root.protocol("WM_DELETE_WINDOW", on_closing)
 
-frame = Frame(root, borderwidth=10, relief=GROOVE)
-frame.pack()
+frame_a = Frame(root, borderwidth=10, relief=GROOVE, bg = "plum2")
+frame_a.pack()
 
-entry = Entry(frame, width = 50)
-entry.pack()
+frame_b = Frame(root, borderwidth=10, relief=GROOVE, bg = "plum2")
+frame_b.pack()
 
-label = Label(frame)
-label.pack()
+label_a = Label(frame_a, text = "Введите формулу вещества: ", bg="plum2", font=("Courier", 12, "italic"))
+label_a.pack()
 
-button = Button(frame, text='Посчитать', command=click)
+label_b = Label(frame_b, text = "Введите уравнение: ", bg="plum2", font=("Courier", 12, "italic"))
+label_b.pack()
+
+entry_a = Entry(frame_a, width = 50)
+entry_a.pack()
+
+entry_b = Entry(frame_b, width = 50)
+entry_b.pack()
+
+button = Button(frame_a, text='Посчитать', command=click, bg='#CA9BD5', font=("Courier", 12, "italic"))
 button.pack()
 
-button2 = Button(frame, text='Уравнять реакцию', command=clicked)
+answer_1 = Label(frame_a, text = "Ответ: ", bg="plum2", font=("Courier", 12, "italic"))
+answer_1.pack()
+
+answer_a = Label(frame_a, bg="plum2", font=("Courier", 12, "italic"))
+answer_a.pack()
+
+button2 = Button(frame_b, text='Уравнять реакцию', command=clicked, bg='#CA9BD5', font=("Courier", 12, "italic"))
 button2.pack()
+
+answer_2 = Label(frame_b, text = "Ответ: ", bg="plum2", font=("Courier", 12, "italic"))
+answer_2.pack()
+
+answer_b = Label(frame_b, bg="plum2", font=("Courier", 12, "italic"))
+answer_b.pack()
+
+button3 = Button(text = 'Click and quit', command = on_closing, bg="plum2", font=("Courier", 12, "italic"))
+button3.pack()
 
 root.mainloop()
