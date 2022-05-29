@@ -17,9 +17,14 @@ its output is carried out through the unicode_name method.
 '''
 
 def click():
-    var = Substance.from_formula(entry_a.get())
-    answer_a.config(text="Your formula: " + var.unicode_name + '\n' + 'Mass: ' + '%.3f' % var.mass)
+    var = entry_a.get()
+    if var.isdigit() or var.islower():
+        messagebox.showerror("Ошибка!", "Проверьте введённые данные.")
+    else:
+        var = Substance.from_formula(var)
+        answer_a.config(text="Your formula: " + var.unicode_name + '\n' + 'Mass: ' + '%.3f' % var.mass)
 
+        
 '''
 Function for calculating coefficients in the equation.
 The entered equation is divided into input and output data
@@ -31,9 +36,19 @@ Dictionaries are used for their output.
     
 def clicked():
     ex,prod=entry_b.get().split('=')
-    ex,prod=balance_stoichiometry(set(ex.split('+')),set(prod.split('+')))
-    answer_b.config(text='Коэффициенты: '+str(dict(ex))+str(dict(prod)))
-    
+    if ex.isdigit() or prod[1].isdigit() or ex.islower() or prod.islower():
+        messagebox.showerror("Ошибка!", "Проверьте введённые данные.")
+    else:
+        ex,prod=balance_stoichiometry(set(ex.split('+')),set(prod.split('+')))
+        answer_b.config(text='Коэффициенты: '+str(dict(ex))+str(dict(prod)))
+
+  
+'''
+Function for exiting the application.
+A pop-up window with buttons
+to exit or cancel the action is used.
+'''
+
 def on_closing():
     if messagebox.askokcancel("Выход из приложения", "Хотите выйти из приложения?"):
         root.destroy()
