@@ -18,7 +18,7 @@ its output is carried out through the unicode_name method.
 
 def click():
     var = entry_a.get()
-    if var.isdigit() or var.islower():
+    if var.isdigit() or var[1].isnumeric() or var.islower():
         messagebox.showerror("Ошибка!", "Проверьте введённые данные.")
     else:
         var = Substance.from_formula(var)
@@ -36,7 +36,7 @@ Dictionaries are used for their output.
     
 def clicked():
     ex,prod=entry_b.get().split('=')
-    if ex.isdigit() or prod[1].isdigit() or ex.islower() or prod.islower():
+    if ex.isdigit() or ex[1].isnumeric() or prod[1].isdnumeric() or prod.isdigt() or ex.islower() or prod.islower():
         messagebox.showerror("Ошибка!", "Проверьте введённые данные.")
     else:
         ex,prod=balance_stoichiometry(set(ex.split('+')),set(prod.split('+')))
